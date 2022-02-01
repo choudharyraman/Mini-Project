@@ -9,3 +9,4 @@ C:\Users\Radhe\Documents\GitHub\Nordic\Mini-Project\LMS\DAL\bin\Debug\EntityFram
 C:\Users\Radhe\Documents\GitHub\Nordic\Mini-Project\LMS\DAL\obj\Debug\DAL.csproj.CopyComplete
 C:\Users\Radhe\Documents\GitHub\Nordic\Mini-Project\LMS\DAL\obj\Debug\DAL.dll
 C:\Users\Radhe\Documents\GitHub\Nordic\Mini-Project\LMS\DAL\obj\Debug\DAL.pdb
+C:\Users\Radhe\Documents\GitHub\Nordic\Mini-Project\LMS\DAL\obj\Debug\DAL.csproj.AssemblyReference.cache

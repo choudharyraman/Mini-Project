@@ -48,8 +48,12 @@
   <ItemGroup>
     <Compile Include="AdminRegBLL.cs" />
     <Compile Include="ChapMasBLL.cs" />
+    <Compile Include="LearnerProBLL.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SubMasBLL.cs" />
+    <Compile Include="TopMasBLL.cs" />
+    <Compile Include="ViewStatusBLL.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
