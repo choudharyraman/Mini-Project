@@ -33,13 +33,18 @@ namespace DAL
             }
         }
 
-        public SubjectMaster SubMasGet(SubjectMaster)
+        public SubjectMaster SubMasGet(Int32 subid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public SubjectMaster SubMasGet(SubjectMaster subMas)
         {
             try
             {
                 using (LMSEntities dbContext = new LMSEntities())
                 {
-                    var user = dbContext.SubjectMasters.Where(x => x.SubjectId == SubjectId).FirstOrDefault();
+                    var user = dbContext.SubjectMasters.Where(x => x.SubjectId == subMas.SubjectId).FirstOrDefault();
                     if (user != null)
                     {
                         return user;
@@ -62,10 +67,10 @@ namespace DAL
             {
                 using (LMSEntities dbContext = new LMSEntities())
                 {
-                    var user = dbContext.SubjectMasters.SUBMASTER_ALL();
+                    var user = dbContext.SUBMASTER_ALL();
                     if (user != null)
                     {
-                        return user;
+                        return (ICollection<SubjectMaster>)user;
                     }
                     else
                     {
@@ -85,12 +90,12 @@ namespace DAL
             {
                 using (LMSEntities dbContext = new LMSEntities())
                 {
-                    dbContext.SUBMASTER_INSERT(subMas.SubjectId, subMas.SubjectName, subMas.LastUpdatedOn, subMas.Domain);
+                    dbContext.SUBMASTER_INSERT(subMas.SubjectId, subMas.SubjectName, subMas.LastUpdateOn, subMas.Domain);
                     dbContext.SaveChanges();
                     return true;
                 }
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 return false;
             }
@@ -105,9 +110,9 @@ namespace DAL
                     var user = dbContext.SubjectMasters.Where(x => x.SubjectId == subMas.SubjectId).FirstOrDefault();
                     if (user != null)
                     {
-                        String newSubjectId = subMas.SubjectId;
+                        int newSubjectId = subMas.SubjectId;
                         String newSubjectName = subMas.SubjectName;
-                        String newLastUpdatedOn = subMas.LastUpdatedOn;
+                        DateTime newLastUpdatedOn = subMas.LastUpdateOn;
                         String newDomain = subMas.Domain;
 
                         dbContext.SUBMASTER_UPDATE(newSubjectId, newSubjectName, newLastUpdatedOn, newDomain);
@@ -118,10 +123,11 @@ namespace DAL
                         return false;
                 }
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 return false;
             }
         }
+
     }
 }

@@ -8,7 +8,7 @@ namespace DAL
 {
     public class LearnerProDALRepo : ILearnerProDALRepo<LearnerProfile>
     {
-        public bool LearnerProDelete(LearnerProfile learnerPro)
+        public Boolean LearnerProDelete(LearnerProfile learnerPro)
         {
             try
             {
@@ -33,13 +33,18 @@ namespace DAL
             }
         }
 
+        public LearnerProfile LearnerProGet(String email)
+        {
+            throw new NotImplementedException();
+        }
+
         public LearnerProfile LearnerProGet(LearnerProfile learnerPro)
         {
             try
             {
                 using (LMSEntities dbContext = new LMSEntities())
                 {
-                    var user = dbContext.LearnerProfiles.Where(x => x.Email == email).FirstOrDefault();
+                    var user = dbContext.LearnerProfiles.Where(x => x.Email == learnerPro.Email).FirstOrDefault();
                     if (user != null)
                     {
                         return user;
@@ -62,10 +67,10 @@ namespace DAL
             {
                 using (LMSEntities dbContext = new LMSEntities())
                 {
-                    var user = dbContext.LearnerProfiles.LEARNPROF_ALL();
+                    var user = dbContext.LEARNPROF_ALL().ToList();
                     if (user != null)
                     {
-                        return user;
+                        return (ICollection<LearnerProfile>)user;
                     }
                     else
                     {
@@ -73,13 +78,13 @@ namespace DAL
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception )
             {
                 return null;
             }
         }
 
-        public bool LearnerProInsert(LearnerProfile learnerPro)
+        public Boolean LearnerProInsert(LearnerProfile learnerPro)
         {
             try
             {
@@ -90,13 +95,13 @@ namespace DAL
                     return true;
                 }
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 return false;
             }
         }
 
-        public bool LearnerProUpdate(LearnerProfile learnerPro)
+        public Boolean LearnerProUpdate(LearnerProfile learnerPro)
         {
             try
             {
@@ -108,24 +113,27 @@ namespace DAL
                         String newEmail = learnerPro.Email;
                         String newFirstName = learnerPro.FirstName;
                         String newLastName = learnerPro.LastName;
-                        String newLastName = learnerPro.DOB;
-                        String newLastName = learnerPro.Gender;
-                        String newLastName = learnerPro.Remarks;
+                        var newDOB = learnerPro.DOB;
+                        String newGender = learnerPro.Gender;
+                        String newRemarks = learnerPro.Remarks;
                         String newUserPassword = learnerPro.UserPassword;
-                        String newLastName = learnerPro.User_Status;
+                        String newUserStatus = learnerPro.User_Status;
 
-                        dbContext.LEARNPROF_UPDATE(newEmail, newFirstName, newLastName, newDOB, newGender, newRemarks, newUserPassword, newUser_Status);
+                        dbContext.LEARNPROF_UPDATE(newEmail, newFirstName, newLastName, newDOB, newGender, newRemarks, newUserPassword, newUserStatus);
                         dbContext.SaveChanges();
                         return true;
                     }
                     else
+                    {
                         return false;
+                    }
                 }
             }
-            catch (Exception)
+            catch (Exception )
             {
                 return false;
             }
         }
+
     }
 }

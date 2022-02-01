@@ -8,7 +8,7 @@ namespace DAL
 {
     public class ViewStatDALRepo : IViewStatDALRepo<ViewStatu>
     {
-        public bool ViewStatDelete(ViewStatu viewStat)
+        public Boolean ViewStatDelete(ViewStatu viewStat)
         {
             try
             {
@@ -33,13 +33,18 @@ namespace DAL
             }
         }
 
+        public ViewStatu ViewStatGet(Int32 id)
+        {
+            throw new NotImplementedException();
+        }
+
         public ViewStatu ViewStatGet(ViewStatu viewStat)
         {
             try
             {
                 using (LMSEntities dbContext = new LMSEntities())
                 {
-                    var user = dbContext.ViewStatus.Where(x => x.ID == ID).FirstOrDefault();
+                    var user = dbContext.ViewStatus.Where(x => x.ID == viewStat.ID).FirstOrDefault();
                     if (user != null)
                     {
                         return user;
@@ -62,10 +67,10 @@ namespace DAL
             {
                 using (LMSEntities dbContext = new LMSEntities())
                 {
-                    var user = dbContext.ViewStatus.VIEWSTATUS_ALL();
+                    var user = dbContext.ViewStatus_ALL();
                     if (user != null)
                     {
-                        return user;
+                        return (ICollection<ViewStatu>)user;
                     }
                     else
                     {
@@ -79,7 +84,7 @@ namespace DAL
             }
         }
 
-        public bool ViewStatInsert(ViewStatu viewStat)
+        public Boolean ViewStatInsert(ViewStatu viewStat)
         {
             try
             {
@@ -90,13 +95,13 @@ namespace DAL
                     return true;
                 }
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 return false;
             }
         }
 
-        public bool ViewStatUpdate(ViewStatu viewStat)
+        public Boolean ViewStatUpdate(ViewStatu viewStat)
         {
             try
             {
@@ -105,12 +110,12 @@ namespace DAL
                     var user = dbContext.ViewStatus.Where(x => x.ID == viewStat.ID).FirstOrDefault();
                     if (user != null)
                     {
-                        String newID = viewStat.ID;
+                        int newID = viewStat.ID;
                         String newLearnerEmailId = viewStat.LearnerEmailId;
-                        String newSubjectId = viewStat.SubjectId;
+                        int newSubjectId = viewStat.SubjectId;
                         String newChapterName = viewStat.ChapterName;
                         String newTopicName = viewStat.TopicName;
-                        String newViewTime = viewStat.ViewTime;
+                        DateTime newViewTime = viewStat.ViewTime;
                         String newComments = viewStat.Comments;
 
                         dbContext.VIEWSTATUS_UPDATE(newID, newLearnerEmailId, newSubjectId, newChapterName, newTopicName, newViewTime, newComments);
@@ -121,7 +126,7 @@ namespace DAL
                         return false;
                 }
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 return false;
             }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    class AdminRegDALRepo : IAdminRegDALRepo<AdminRegistration>
+    public class AdminRegDALRepo : IAdminRegDALRepo<AdminRegistration>
     {
         public bool AdminRegDelete(AdminRegistration adminReg)
         {
@@ -34,16 +34,21 @@ namespace DAL
 
         }
 
+        public AdminRegistration AdminRegGetUser(string email)
+        {
+            throw new NotImplementedException();
+        }
+
         public ICollection<AdminRegistration> AdminRegGetAll()
         {
            try
             {
                 using (LMSEntities dbContext = new LMSEntities())
                 {
-                    var user = dbContext.AdminRegistrations.ADMINREG_ALL();
+                    var user = dbContext.ADMINREG_ALL();
                     if (user != null)
                     {
-                        return user;
+                        return (ICollection < AdminRegistration >) user;
                     }
                     else
                     {
@@ -93,7 +98,7 @@ namespace DAL
                     return true;
                 }
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 return false;
             }

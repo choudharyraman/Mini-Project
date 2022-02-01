@@ -14,7 +14,7 @@ namespace DAL
 
         bool ChapMasUpdate(ChapterMaster chapMas);
 
-        ChapterMaster ChapMasGetUser(int email);
+        ChapterMaster ChapMasGetUser(ChapterMaster chapMas);
 
         ICollection<ChapterMaster> ChapMasGetAll();
     }

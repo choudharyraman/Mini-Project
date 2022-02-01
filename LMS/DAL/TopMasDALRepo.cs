@@ -8,13 +8,13 @@ namespace DAL
 {
     public class TopMasDALRepo : ITopMasDALRepo<TopicMaster>
     {
-        public bool TopMasDelete(TopicMaster topMas)
+        public Boolean TopMasDelete(TopicMaster topMas)
         {
             try
             {
                 using (LMSEntities dbContext = new LMSEntities())
                 {
-                    var user = dbContext.TopicMasters.Where(x => x.TopicName ==topMas.TopicName).FirstOrDefault();
+                    var user = dbContext.TopicMasters.Where(x => x.TopicName == topMas.TopicName).FirstOrDefault();
                     if (user != null)
                     {
                         dbContext.TOPICMASTER_DELETE(topMas.TopicName);
@@ -33,13 +33,18 @@ namespace DAL
             }
         }
 
+        public TopicMaster TopMasGet(String tname)
+        {
+            throw new NotImplementedException();
+        }
+
         public TopicMaster TopMasGet(TopicMaster topMas)
         {
             try
             {
                 using (LMSEntities dbContext = new LMSEntities())
                 {
-                    var user = dbContext.TopicMasters.Where(x => x.TopicName == TopicName).FirstOrDefault();
+                    var user = dbContext.TopicMasters.Where(x => x.TopicName == topMas.TopicName).FirstOrDefault();
                     if (user != null)
                     {
                         return user;
@@ -62,10 +67,10 @@ namespace DAL
             {
                 using (LMSEntities dbContext = new LMSEntities())
                 {
-                    var user = dbContext.TopicMasters.TOPICMASTER_ALL();
+                    var user = dbContext.TOPICMASTER_ALL().ToList();
                     if (user != null)
                     {
-                        return user;
+                        return (ICollection<TopicMaster>)user;
                     }
                     else
                     {
@@ -79,9 +84,8 @@ namespace DAL
             }
         }
 
-        public bool TopMasInsert(TopicMaster topMas)
+        public Boolean TopMasInsert(TopicMaster topMas)
         {
-
             try
             {
                 using (LMSEntities dbContext = new LMSEntities())
@@ -91,13 +95,13 @@ namespace DAL
                     return true;
                 }
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 return false;
             }
         }
 
-        public bool TopMasUpdate(TopicMaster topMas)
+        public Boolean TopMasUpdate(TopicMaster topMas)
         {
             try
             {
@@ -107,9 +111,9 @@ namespace DAL
                     if (user != null)
                     {
                         String newTopicName = topMas.TopicName;
-                        String newSubjectId = topMas.SubjectId;
+                        int newSubjectId = topMas.SubjectId;
                         String newChapterName = topMas.ChapterName;
-                        String newLastUpdateOn = topMas.LastUpdateOn;
+                        DateTime newLastUpdateOn = topMas.LastUpdateOn;
                         String newContentUrl = topMas.ContentUrl;
 
                         dbContext.TOPICMASTER_UPDATE(newTopicName, newSubjectId, newChapterName, newLastUpdateOn, newContentUrl);
@@ -120,7 +124,7 @@ namespace DAL
                         return false;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }

@@ -1,0 +1,11 @@
+C:\Users\Radhe\Documents\GitHub\Nordic\Mini-Project\LMS\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache
+C:\Users\Radhe\Documents\GitHub\Nordic\Mini-Project\LMS\DAL\bin\Debug\DAL.dll.config
+C:\Users\Radhe\Documents\GitHub\Nordic\Mini-Project\LMS\DAL\bin\Debug\DAL.dll
+C:\Users\Radhe\Documents\GitHub\Nordic\Mini-Project\LMS\DAL\bin\Debug\DAL.pdb
+C:\Users\Radhe\Documents\GitHub\Nordic\Mini-Project\LMS\DAL\bin\Debug\EntityFramework.dll
+C:\Users\Radhe\Documents\GitHub\Nordic\Mini-Project\LMS\DAL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Radhe\Documents\GitHub\Nordic\Mini-Project\LMS\DAL\bin\Debug\EntityFramework.xml
+C:\Users\Radhe\Documents\GitHub\Nordic\Mini-Project\LMS\DAL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Radhe\Documents\GitHub\Nordic\Mini-Project\LMS\DAL\obj\Debug\DAL.csproj.CopyComplete
+C:\Users\Radhe\Documents\GitHub\Nordic\Mini-Project\LMS\DAL\obj\Debug\DAL.dll
+C:\Users\Radhe\Documents\GitHub\Nordic\Mini-Project\LMS\DAL\obj\Debug\DAL.pdb

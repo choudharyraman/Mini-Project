@@ -75,6 +75,8 @@
     <Compile Include="IChapMasDALRepo.cs" />
     <Compile Include="ILearnerProDALRepo.cs" />
     <Compile Include="ISubMasDALRepo.cs" />
+    <Compile Include="ITopMasDALRepo.cs" />
+    <Compile Include="IViewStatDALRepo.cs" />
     <Compile Include="LearnerProDALRepo.cs" />
     <Compile Include="LearnerProfile.cs">
       <DependentUpon>LMS.tt</DependentUpon>
@@ -110,6 +112,7 @@
     <Compile Include="SubjectMaster.cs">
       <DependentUpon>LMS.tt</DependentUpon>
     </Compile>
+    <Compile Include="SubMasDALRepo.cs" />
     <Compile Include="SUBMASTER_ALL_Result.cs">
       <DependentUpon>LMS.tt</DependentUpon>
     </Compile>
@@ -128,6 +131,8 @@
     <Compile Include="TOPICMASTER_GETUSER_Result.cs">
       <DependentUpon>LMS.tt</DependentUpon>
     </Compile>
+    <Compile Include="TopMasDALRepo.cs" />
+    <Compile Include="ViewStatDALRepo.cs" />
     <Compile Include="ViewStatu.cs">
       <DependentUpon>LMS.tt</DependentUpon>
     </Compile>

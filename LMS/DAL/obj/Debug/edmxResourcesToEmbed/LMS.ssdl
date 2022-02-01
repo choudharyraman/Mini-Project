@@ -1,0 +1,354 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AdminRegistration">
+    <Key>
+      <PropertyRef Name="email" />
+    </Key>
+    <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="first_name" Type="varchar" MaxLength="50" />
+    <Property Name="last_name" Type="varchar" MaxLength="50" />
+    <Property Name="AdminPassword" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ChapterMaster">
+    <Key>
+      <PropertyRef Name="ChapterName" />
+    </Key>
+    <Property Name="ChapterName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="SubjectId" Type="int" Nullable="false" />
+    <Property Name="LastUpdatedOn" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LearnerProfile">
+    <Key>
+      <PropertyRef Name="Email" />
+    </Key>
+    <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" />
+    <Property Name="DOB" Type="datetime" />
+    <Property Name="Gender" Type="varchar" MaxLength="10" />
+    <Property Name="Remarks" Type="varchar" MaxLength="100" />
+    <Property Name="UserPassword" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="User_Status" Type="varchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SubjectMaster">
+    <Key>
+      <PropertyRef Name="SubjectId" />
+    </Key>
+    <Property Name="SubjectId" Type="int" Nullable="false" />
+    <Property Name="SubjectName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdateOn" Type="datetime" Nullable="false" />
+    <Property Name="Domain" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="TopicMaster">
+    <Key>
+      <PropertyRef Name="TopicName" />
+    </Key>
+    <Property Name="TopicName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="SubjectId" Type="int" Nullable="false" />
+    <Property Name="ChapterName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdateOn" Type="datetime" Nullable="false" />
+    <Property Name="ContentUrl" Type="varchar" MaxLength="200" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ViewStatus">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="LearnerEmailId" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="SubjectId" Type="int" Nullable="false" />
+    <Property Name="ChapterName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="TopicName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ViewTime" Type="datetime" Nullable="false" />
+    <Property Name="Comments" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__ChapterMa__Subje__286302EC">
+    <End Role="SubjectMaster" Type="Self.SubjectMaster" Multiplicity="1" />
+    <End Role="ChapterMaster" Type="Self.ChapterMaster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubjectMaster">
+        <PropertyRef Name="SubjectId" />
+      </Principal>
+      <Dependent Role="ChapterMaster">
+        <PropertyRef Name="SubjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TopicMast__Chapt__2C3393D0">
+    <End Role="ChapterMaster" Type="Self.ChapterMaster" Multiplicity="1" />
+    <End Role="TopicMaster" Type="Self.TopicMaster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ChapterMaster">
+        <PropertyRef Name="ChapterName" />
+      </Principal>
+      <Dependent Role="TopicMaster">
+        <PropertyRef Name="ChapterName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TopicMast__Subje__2B3F6F97">
+    <End Role="SubjectMaster" Type="Self.SubjectMaster" Multiplicity="1" />
+    <End Role="TopicMaster" Type="Self.TopicMaster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubjectMaster">
+        <PropertyRef Name="SubjectId" />
+      </Principal>
+      <Dependent Role="TopicMaster">
+        <PropertyRef Name="SubjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ViewStatu__Chapt__32E0915F">
+    <End Role="ChapterMaster" Type="Self.ChapterMaster" Multiplicity="1" />
+    <End Role="ViewStatus" Type="Self.ViewStatus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ChapterMaster">
+        <PropertyRef Name="ChapterName" />
+      </Principal>
+      <Dependent Role="ViewStatus">
+        <PropertyRef Name="ChapterName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ViewStatu__Learn__30F848ED">
+    <End Role="LearnerProfile" Type="Self.LearnerProfile" Multiplicity="1" />
+    <End Role="ViewStatus" Type="Self.ViewStatus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LearnerProfile">
+        <PropertyRef Name="Email" />
+      </Principal>
+      <Dependent Role="ViewStatus">
+        <PropertyRef Name="LearnerEmailId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ViewStatu__Subje__31EC6D26">
+    <End Role="SubjectMaster" Type="Self.SubjectMaster" Multiplicity="1" />
+    <End Role="ViewStatus" Type="Self.ViewStatus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubjectMaster">
+        <PropertyRef Name="SubjectId" />
+      </Principal>
+      <Dependent Role="ViewStatus">
+        <PropertyRef Name="SubjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ViewStatu__Topic__33D4B598">
+    <End Role="TopicMaster" Type="Self.TopicMaster" Multiplicity="1" />
+    <End Role="ViewStatus" Type="Self.ViewStatus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TopicMaster">
+        <PropertyRef Name="TopicName" />
+      </Principal>
+      <Dependent Role="ViewStatus">
+        <PropertyRef Name="TopicName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="ADMINREG_ALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ADMINREG_DELETE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EMAIL" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ADMINREG_GETUSER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EMAIL" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ADMINREG_INSERT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EMAIL" Type="varchar" Mode="In" />
+    <Parameter Name="FNAME" Type="varchar" Mode="In" />
+    <Parameter Name="LNAME" Type="varchar" Mode="In" />
+    <Parameter Name="PASSWORD" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ADMINREG_UPDATE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EMAIL" Type="varchar" Mode="In" />
+    <Parameter Name="FNAME" Type="varchar" Mode="In" />
+    <Parameter Name="LNAME" Type="varchar" Mode="In" />
+    <Parameter Name="PASSWORD" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="CHAPTERMASTER_ALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="CHAPTERMASTER_DELETE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CNAME" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="CHAPTERMASTER_GETUSER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ChapterName" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="CHAPTERMASTER_INSERT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CNAME" Type="varchar" Mode="In" />
+    <Parameter Name="SUBID" Type="int" Mode="In" />
+    <Parameter Name="LASTUP" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="CHAPTERMASTER_UPDATE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CNAME" Type="varchar" Mode="In" />
+    <Parameter Name="SUBID" Type="int" Mode="In" />
+    <Parameter Name="LASTUP" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="LEARNPROF_ALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="LEARNPROF_DELETE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EMAIL" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="LEARNPROF_GETUSER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EMAIL" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="LEARNPROF_INSERT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EMAIL" Type="varchar" Mode="In" />
+    <Parameter Name="FNAME" Type="varchar" Mode="In" />
+    <Parameter Name="LNAME" Type="varchar" Mode="In" />
+    <Parameter Name="DOB" Type="datetime" Mode="In" />
+    <Parameter Name="GENDER" Type="varchar" Mode="In" />
+    <Parameter Name="REM" Type="varchar" Mode="In" />
+    <Parameter Name="PASSWORD" Type="varchar" Mode="In" />
+    <Parameter Name="STATUS" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="LEARNPROF_UPDATE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EMAIL" Type="varchar" Mode="In" />
+    <Parameter Name="FNAME" Type="varchar" Mode="In" />
+    <Parameter Name="LNAME" Type="varchar" Mode="In" />
+    <Parameter Name="DOB" Type="datetime" Mode="In" />
+    <Parameter Name="GENDER" Type="varchar" Mode="In" />
+    <Parameter Name="REM" Type="varchar" Mode="In" />
+    <Parameter Name="PASSWORD" Type="varchar" Mode="In" />
+    <Parameter Name="STATUS" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="SUBMASTER_ALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="SUBMASTER_DELETE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="SUBID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SUBMASTER_GETUSER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="SubjectId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SUBMASTER_INSERT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="SUBID" Type="int" Mode="In" />
+    <Parameter Name="SUBNAME" Type="varchar" Mode="In" />
+    <Parameter Name="LASTUP" Type="datetime" Mode="In" />
+    <Parameter Name="DOMAIN" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SUBMASTER_UPDATE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="SUBID" Type="int" Mode="In" />
+    <Parameter Name="SUBNAME" Type="varchar" Mode="In" />
+    <Parameter Name="LASTUP" Type="datetime" Mode="In" />
+    <Parameter Name="DOMAIN" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="TOPICMASTER_ALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="TOPICMASTER_DELETE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TNAME" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="TOPICMASTER_GETUSER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TopicName" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="TOPICMASTER_INSERT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TNAME" Type="varchar" Mode="In" />
+    <Parameter Name="SUBID" Type="int" Mode="In" />
+    <Parameter Name="CNAME" Type="varchar" Mode="In" />
+    <Parameter Name="LASTUP" Type="datetime" Mode="In" />
+    <Parameter Name="CONTURL" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="TOPICMASTER_UPDATE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TNAME" Type="varchar" Mode="In" />
+    <Parameter Name="SUBID" Type="int" Mode="In" />
+    <Parameter Name="CNAME" Type="varchar" Mode="In" />
+    <Parameter Name="LASTUP" Type="datetime" Mode="In" />
+    <Parameter Name="CONTURL" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="VIEWSTATUS_ALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="VIEWSTATUS_DELETE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="VIEWSTATUS_GETUSER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="VIEWSTATUS_INSERT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID" Type="int" Mode="In" />
+    <Parameter Name="EMAIL" Type="varchar" Mode="In" />
+    <Parameter Name="SUBID" Type="int" Mode="In" />
+    <Parameter Name="CNAME" Type="varchar" Mode="In" />
+    <Parameter Name="TNAME" Type="varchar" Mode="In" />
+    <Parameter Name="VTIME" Type="datetime" Mode="In" />
+    <Parameter Name="COMMENT" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="VIEWSTATUS_UPDATE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID" Type="int" Mode="In" />
+    <Parameter Name="EMAIL" Type="varchar" Mode="In" />
+    <Parameter Name="SUBID" Type="int" Mode="In" />
+    <Parameter Name="CNAME" Type="varchar" Mode="In" />
+    <Parameter Name="TNAME" Type="varchar" Mode="In" />
+    <Parameter Name="VTIME" Type="datetime" Mode="In" />
+    <Parameter Name="COMMENT" Type="varchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="LMSModelStoreContainer">
+    <EntitySet Name="AdminRegistration" EntityType="Self.AdminRegistration" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ChapterMaster" EntityType="Self.ChapterMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LearnerProfile" EntityType="Self.LearnerProfile" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SubjectMaster" EntityType="Self.SubjectMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TopicMaster" EntityType="Self.TopicMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ViewStatus" EntityType="Self.ViewStatus" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__ChapterMa__Subje__286302EC" Association="Self.FK__ChapterMa__Subje__286302EC">
+      <End Role="SubjectMaster" EntitySet="SubjectMaster" />
+      <End Role="ChapterMaster" EntitySet="ChapterMaster" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TopicMast__Chapt__2C3393D0" Association="Self.FK__TopicMast__Chapt__2C3393D0">
+      <End Role="ChapterMaster" EntitySet="ChapterMaster" />
+      <End Role="TopicMaster" EntitySet="TopicMaster" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TopicMast__Subje__2B3F6F97" Association="Self.FK__TopicMast__Subje__2B3F6F97">
+      <End Role="SubjectMaster" EntitySet="SubjectMaster" />
+      <End Role="TopicMaster" EntitySet="TopicMaster" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ViewStatu__Chapt__32E0915F" Association="Self.FK__ViewStatu__Chapt__32E0915F">
+      <End Role="ChapterMaster" EntitySet="ChapterMaster" />
+      <End Role="ViewStatus" EntitySet="ViewStatus" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ViewStatu__Learn__30F848ED" Association="Self.FK__ViewStatu__Learn__30F848ED">
+      <End Role="LearnerProfile" EntitySet="LearnerProfile" />
+      <End Role="ViewStatus" EntitySet="ViewStatus" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ViewStatu__Subje__31EC6D26" Association="Self.FK__ViewStatu__Subje__31EC6D26">
+      <End Role="SubjectMaster" EntitySet="SubjectMaster" />
+      <End Role="ViewStatus" EntitySet="ViewStatus" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ViewStatu__Topic__33D4B598" Association="Self.FK__ViewStatu__Topic__33D4B598">
+      <End Role="TopicMaster" EntitySet="TopicMaster" />
+      <End Role="ViewStatus" EntitySet="ViewStatus" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

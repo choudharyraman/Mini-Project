@@ -34,7 +34,12 @@ namespace DAL
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TopicMaster> TopicMasters { get; set; }
         public virtual DbSet<ViewStatu> ViewStatus { get; set; }
-    
+
+        internal object ChapterMaster_ALL()
+        {
+            throw new NotImplementedException();
+        }
+
         public virtual ObjectResult<ADMINREG_ALL_Result> ADMINREG_ALL()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ADMINREG_ALL_Result>("ADMINREG_ALL");
@@ -48,7 +53,12 @@ namespace DAL
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ADMINREG_DELETE", eMAILParameter);
         }
-    
+
+        internal object ViewStatus_ALL()
+        {
+            throw new NotImplementedException();
+        }
+
         public virtual ObjectResult<ADMINREG_GETUSER_Result> ADMINREG_GETUSER(string eMAIL)
         {
             var eMAILParameter = eMAIL != null ?

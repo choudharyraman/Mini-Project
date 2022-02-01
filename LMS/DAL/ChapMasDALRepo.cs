@@ -8,9 +8,10 @@ namespace DAL
 {
     public class ChapMasDALRepo : IChapMasDALRepo<ChapterMaster>
     {
-        public string ChapterName { get; private set; }
+     
 
-        public bool ChapMasDelete(ChapterMaster chapMas)
+
+        bool IChapMasDALRepo<ChapterMaster>.ChapMasDelete(ChapterMaster chapMas)
         {
             try
             {
@@ -29,59 +30,85 @@ namespace DAL
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }
         }
 
-        public ICollection<ChapterMaster> ChapMasGetAll()
+        public bool ChapMasUpdate(ChapterMaster chapMas)
         {
-            try
-            {
-                using (LMSEntities dbContext = new LMSEntities())
-                {
-                    var user = dbContext.ChapterMasters.CHAPTERMASTER_ALL();
-                    if (user != null)
-                    {
-                        return user;
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
-
-        public ChapterMaster ChapMasGetUser(int email)
-        {
-            try
-            {
-                using (LMSEntities dbContext = new LMSEntities())
-                {
-                    var user = dbContext.ChapterMasters.Where(x => x.ChapterName == ChapterName).FirstOrDefault();
-                    if (user != null)
-                    {
-                        return user;
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+            throw new NotImplementedException();
         }
 
         public bool ChapMasInsert(ChapterMaster chapMas)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ChapterMaster ChapMasGet(string chapterName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ICollection<ChapterMaster> ChapMasGetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ChapMasDelete(ChapterMaster chapMas)
+        {
+            throw new NotImplementedException();
+        }
+
+        ICollection<ChapterMaster> IChapMasDALRepo<ChapterMaster>.ChapMasGetAll()
+        {
+            try
+            {
+                using (LMSEntities dbContext = new LMSEntities())
+                {
+                    var user = dbContext.ChapterMaster_ALL();
+                    if (user != null)
+                    {
+                        return (ICollection<ChapterMaster>)user;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        ChapterMaster IChapMasDALRepo<ChapterMaster>.ChapMasGetUser(ChapterMaster chapMas)
+        {
+            try
+            {
+                using (LMSEntities dbContext = new LMSEntities())
+                {
+                    var user = dbContext.ChapterMasters.Where(x => x.ChapterName == chapMas.ChapterName).FirstOrDefault();
+                    if (user != null)
+                    {
+                       
+                        return user;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        bool IChapMasDALRepo<ChapterMaster>.ChapMasInsert(ChapterMaster chapMas)
         {
             try
             {
@@ -92,13 +119,13 @@ namespace DAL
                     return true;
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex )
             {
                 return false;
             }
         }
 
-        public bool ChapMasUpdate(ChapterMaster chapMas)
+        bool IChapMasDALRepo<ChapterMaster>.ChapMasUpdate(ChapterMaster chapMas)
         {
             try
             {
@@ -108,8 +135,8 @@ namespace DAL
                     if (user != null)
                     {
                         String newChapterName = chapMas.ChapterName;
-                        string newSubjectId = chapMas.SubjectId;
-                        String newLastUpdatedOn = chapMas.LastUpdatedOn;
+                        int newSubjectId = chapMas.SubjectId;
+                        DateTime newLastUpdatedOn = chapMas.LastUpdatedOn;
 
                         dbContext.CHAPTERMASTER_UPDATE(newChapterName, newSubjectId, newLastUpdatedOn);
                         dbContext.SaveChanges();
@@ -126,3 +153,4 @@ namespace DAL
         }
     }
 }
+
